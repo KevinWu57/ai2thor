@@ -21,6 +21,7 @@ public class GestureReplay : MonoBehaviour
     private int counterLoad = 0; // count number of frames of loaded animation
     private Vector3 initialPos;
     private Quaternion initialRot;
+    private GameObject humanMocapAnimator;
     public int sequence_length = 100;
 
     // replay from neural network
@@ -40,8 +41,9 @@ public class GestureReplay : MonoBehaviour
 
     private void Start() 
     {
-        Animator animator = GetComponent<Animator>();
-        poseHandler = new HumanPoseHandler(animator.avatar, transform);
+        humanMocapAnimator = GameObject.Find("HumanMocapAnimator");
+        Animator animator = humanMocapAnimator.GetComponent<Animator>();
+        poseHandler = new HumanPoseHandler(animator.avatar, humanMocapAnimator.transform);
 
         muscleCount = HumanTrait.MuscleCount; // count the number of muscles of the avatar
         currentMuscles = new float[muscleCount]; 
@@ -60,10 +62,10 @@ public class GestureReplay : MonoBehaviour
         animationHumanPoses = new float[sequence_length, muscleCount];
         
         // Disable body controller
-        GetComponent<Animator>().runtimeAnimatorController = null;
+        // humanMocapAnimator.GetComponent<Animator>().runtimeAnimatorController = null;
 
         string path = Directory.GetCurrentDirectory();
-        path = path + "/Assets/GestureMocap/Recordings/" + (loadedFile.EndsWith(".csv")? loadedFile:(loadedFile+".csv"));
+        path = path + "/Assets/GestureMocap/Recordings/motions/" + (loadedFile.EndsWith(".csv")? loadedFile:(loadedFile+".csv"));
 
         try
         {
@@ -75,9 +77,9 @@ public class GestureReplay : MonoBehaviour
                 line = sr.ReadLine().Split(';');
                 if(frame != 0)
                 {
-                    for (int muscleNum = 3; muscleNum < line.Length - 1; muscleNum++)
+                    for (int muscleNum = 0; muscleNum < line.Length - 1; muscleNum++)
                     {
-                        animationHumanPoses[frame-1, muscleNum-3] = float.Parse(line[muscleNum]);
+                        animationHumanPoses[frame-1, muscleNum] = float.Parse(line[muscleNum]);
                     }
                 }
                 frame++;
@@ -168,9 +170,9 @@ public class GestureReplay : MonoBehaviour
         if(counterPlay==0)
         {
             // Set the transform
-            transform.position = Vector3.zero;
+            humanMocapAnimator.transform.position = Vector3.zero;
             // Local position
-            Vector3 localPos = transform.InverseTransformPoint(initialPos);
+            Vector3 localPos = humanMocapAnimator.transform.InverseTransformPoint(initialPos);
             poseToSet.bodyPosition = localPos;
         }
 

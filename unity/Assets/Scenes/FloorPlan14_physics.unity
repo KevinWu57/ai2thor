@@ -1408,8 +1408,8 @@ MonoBehaviour:
   ReceptacleTriggerBoxes:
   - {fileID: 676523725}
   - {fileID: 1294371474}
-  isVisible: 0
-  isInteractable: 0
+  debugIsVisible: 0
+  debugIsInteractable: 0
   isInAgentHand: 0
   MyColliders: []
   HFdynamicfriction: 0
@@ -1429,6 +1429,7 @@ MonoBehaviour:
   IsReceptacle: 0
   IsPickupable: 0
   IsMoveable: 0
+  isStatic: 0
   IsToggleable: 0
   IsOpenable: 0
   IsBreakable: 0
@@ -3123,8 +3124,8 @@ MonoBehaviour:
   - {fileID: 1103570113}
   ReceptacleTriggerBoxes:
   - {fileID: 460583366}
-  isVisible: 0
-  isInteractable: 0
+  debugIsVisible: 0
+  debugIsInteractable: 0
   isInAgentHand: 0
   MyColliders: []
   HFdynamicfriction: 0
@@ -3144,6 +3145,7 @@ MonoBehaviour:
   IsReceptacle: 0
   IsPickupable: 0
   IsMoveable: 0
+  isStatic: 0
   IsToggleable: 0
   IsOpenable: 0
   IsBreakable: 0
@@ -6559,8 +6561,8 @@ MonoBehaviour:
   - {fileID: 1222956124}
   ReceptacleTriggerBoxes:
   - {fileID: 438607279}
-  isVisible: 0
-  isInteractable: 0
+  debugIsVisible: 0
+  debugIsInteractable: 0
   isInAgentHand: 0
   MyColliders: []
   HFdynamicfriction: 0
@@ -6580,6 +6582,7 @@ MonoBehaviour:
   IsReceptacle: 0
   IsPickupable: 0
   IsMoveable: 0
+  isStatic: 0
   IsToggleable: 0
   IsOpenable: 0
   IsBreakable: 0
@@ -7555,8 +7558,8 @@ MonoBehaviour:
   - {fileID: 2105065648}
   ReceptacleTriggerBoxes:
   - {fileID: 390264034}
-  isVisible: 0
-  isInteractable: 0
+  debugIsVisible: 0
+  debugIsInteractable: 0
   isInAgentHand: 0
   MyColliders: []
   HFdynamicfriction: 0
@@ -7576,6 +7579,7 @@ MonoBehaviour:
   IsReceptacle: 0
   IsPickupable: 0
   IsMoveable: 0
+  isStatic: 0
   IsToggleable: 0
   IsOpenable: 0
   IsBreakable: 0
@@ -10018,8 +10022,8 @@ MonoBehaviour:
   - {fileID: 1308151847}
   - {fileID: 55369207}
   - {fileID: 42531755}
-  isVisible: 0
-  isInteractable: 0
+  debugIsVisible: 0
+  debugIsInteractable: 0
   isInAgentHand: 0
   MyColliders: []
   HFdynamicfriction: 0
@@ -10039,6 +10043,7 @@ MonoBehaviour:
   IsReceptacle: 0
   IsPickupable: 0
   IsMoveable: 0
+  isStatic: 0
   IsToggleable: 0
   IsOpenable: 0
   IsBreakable: 0
@@ -13314,8 +13319,8 @@ MonoBehaviour:
   - {fileID: 339858165}
   - {fileID: 2101321213}
   - {fileID: 772924045}
-  isVisible: 0
-  isInteractable: 0
+  debugIsVisible: 0
+  debugIsInteractable: 0
   isInAgentHand: 0
   MyColliders:
   - {fileID: 2125412030}
@@ -13336,6 +13341,7 @@ MonoBehaviour:
   IsReceptacle: 0
   IsPickupable: 0
   IsMoveable: 0
+  isStatic: 0
   IsToggleable: 0
   IsOpenable: 0
   IsBreakable: 0
@@ -20325,8 +20331,8 @@ MonoBehaviour:
   - {fileID: 1485336571}
   ReceptacleTriggerBoxes:
   - {fileID: 0}
-  isVisible: 0
-  isInteractable: 0
+  debugIsVisible: 0
+  debugIsInteractable: 0
   isInAgentHand: 0
   MyColliders: []
   HFdynamicfriction: 0
@@ -20346,6 +20352,7 @@ MonoBehaviour:
   IsReceptacle: 0
   IsPickupable: 0
   IsMoveable: 0
+  isStatic: 0
   IsToggleable: 0
   IsOpenable: 0
   IsBreakable: 0
@@ -20552,6 +20559,110 @@ Transform:
   m_Father: {fileID: 686727107}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1429187706
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8361732136961498384, guid: 2b4f184877f0fec4098d1c2d1e253fcc,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8361732136961498384, guid: 2b4f184877f0fec4098d1c2d1e253fcc,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8361732136961498384, guid: 2b4f184877f0fec4098d1c2d1e253fcc,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8361732136961498384, guid: 2b4f184877f0fec4098d1c2d1e253fcc,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8361732136961498384, guid: 2b4f184877f0fec4098d1c2d1e253fcc,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8361732136961498384, guid: 2b4f184877f0fec4098d1c2d1e253fcc,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8361732136961498384, guid: 2b4f184877f0fec4098d1c2d1e253fcc,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8361732136961498384, guid: 2b4f184877f0fec4098d1c2d1e253fcc,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8361732136961498384, guid: 2b4f184877f0fec4098d1c2d1e253fcc,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8361732136961498384, guid: 2b4f184877f0fec4098d1c2d1e253fcc,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8361732136961498384, guid: 2b4f184877f0fec4098d1c2d1e253fcc,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8361732136961498391, guid: 2b4f184877f0fec4098d1c2d1e253fcc,
+        type: 3}
+      propertyPath: m_Name
+      value: MocapModule
+      objectReference: {fileID: 0}
+    - target: {fileID: 8361732138753163610, guid: 2b4f184877f0fec4098d1c2d1e253fcc,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8361732138753163610, guid: 2b4f184877f0fec4098d1c2d1e253fcc,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.5536505
+      objectReference: {fileID: 0}
+    - target: {fileID: 8361732138753163610, guid: 2b4f184877f0fec4098d1c2d1e253fcc,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8361732138753163610, guid: 2b4f184877f0fec4098d1c2d1e253fcc,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.8327492
+      objectReference: {fileID: 0}
+    - target: {fileID: 8361732138753163610, guid: 2b4f184877f0fec4098d1c2d1e253fcc,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 67.236
+      objectReference: {fileID: 0}
+    - target: {fileID: 8361732138753163610, guid: 2b4f184877f0fec4098d1c2d1e253fcc,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.544
+      objectReference: {fileID: 0}
+    - target: {fileID: 8361732138753163610, guid: 2b4f184877f0fec4098d1c2d1e253fcc,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.228
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2b4f184877f0fec4098d1c2d1e253fcc, type: 3}
 --- !u!1 &1431096715
 GameObject:
   m_ObjectHideFlags: 0
@@ -21791,8 +21902,8 @@ MonoBehaviour:
   - {fileID: 1002343487}
   ReceptacleTriggerBoxes:
   - {fileID: 71315337}
-  isVisible: 0
-  isInteractable: 0
+  debugIsVisible: 0
+  debugIsInteractable: 0
   isInAgentHand: 0
   MyColliders: []
   HFdynamicfriction: 0
@@ -21812,6 +21923,7 @@ MonoBehaviour:
   IsReceptacle: 0
   IsPickupable: 0
   IsMoveable: 0
+  isStatic: 0
   IsToggleable: 0
   IsOpenable: 0
   IsBreakable: 0
@@ -31018,13 +31130,12 @@ MonoBehaviour:
   closedPositions:
   - {x: 0, y: 0, z: 0}
   animationTime: 0.2
+  triggerEnabled: 1
   currentOpenness: 1
   IgnoreTheseObjects: []
   isOpen: 0
   isCurrentlyResetting: 1
   movementType: 1
-  OpenBoundingBox: {fileID: 0}
-  ClosedBoundingBox: {fileID: 0}
 --- !u!54 &2027650835
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -31071,8 +31182,8 @@ MonoBehaviour:
   - {fileID: 1073631843}
   ReceptacleTriggerBoxes:
   - {fileID: 1425874963}
-  isVisible: 0
-  isInteractable: 0
+  debugIsVisible: 0
+  debugIsInteractable: 0
   isInAgentHand: 0
   MyColliders: []
   HFdynamicfriction: 0
@@ -31092,6 +31203,7 @@ MonoBehaviour:
   IsReceptacle: 0
   IsPickupable: 0
   IsMoveable: 0
+  isStatic: 0
   IsToggleable: 0
   IsOpenable: 0
   IsBreakable: 0
@@ -31154,13 +31266,12 @@ MonoBehaviour:
   closedPositions:
   - {x: 0, y: 0, z: 0}
   animationTime: 0.2
+  triggerEnabled: 1
   currentOpenness: 1
   IgnoreTheseObjects: []
   isOpen: 0
   isCurrentlyResetting: 1
   movementType: 1
-  OpenBoundingBox: {fileID: 0}
-  ClosedBoundingBox: {fileID: 0}
 --- !u!54 &2027650840
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -31207,8 +31318,8 @@ MonoBehaviour:
   - {fileID: 501439872}
   ReceptacleTriggerBoxes:
   - {fileID: 1712998193}
-  isVisible: 0
-  isInteractable: 0
+  debugIsVisible: 0
+  debugIsInteractable: 0
   isInAgentHand: 0
   MyColliders: []
   HFdynamicfriction: 0
@@ -31228,6 +31339,7 @@ MonoBehaviour:
   IsReceptacle: 0
   IsPickupable: 0
   IsMoveable: 0
+  isStatic: 0
   IsToggleable: 0
   IsOpenable: 0
   IsBreakable: 0
@@ -31290,13 +31402,12 @@ MonoBehaviour:
   closedPositions:
   - {x: 0, y: 0, z: 0}
   animationTime: 0.2
+  triggerEnabled: 1
   currentOpenness: 1
   IgnoreTheseObjects: []
   isOpen: 0
   isCurrentlyResetting: 1
   movementType: 1
-  OpenBoundingBox: {fileID: 0}
-  ClosedBoundingBox: {fileID: 0}
 --- !u!54 &2027650845
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -31343,8 +31454,8 @@ MonoBehaviour:
   - {fileID: 1245633228}
   ReceptacleTriggerBoxes:
   - {fileID: 862773061}
-  isVisible: 0
-  isInteractable: 0
+  debugIsVisible: 0
+  debugIsInteractable: 0
   isInAgentHand: 0
   MyColliders: []
   HFdynamicfriction: 0
@@ -31364,6 +31475,7 @@ MonoBehaviour:
   IsReceptacle: 0
   IsPickupable: 0
   IsMoveable: 0
+  isStatic: 0
   IsToggleable: 0
   IsOpenable: 0
   IsBreakable: 0
@@ -31426,13 +31538,12 @@ MonoBehaviour:
   closedPositions:
   - {x: 0, y: 0, z: 0}
   animationTime: 0.2
+  triggerEnabled: 1
   currentOpenness: 1
   IgnoreTheseObjects: []
   isOpen: 0
   isCurrentlyResetting: 1
   movementType: 1
-  OpenBoundingBox: {fileID: 0}
-  ClosedBoundingBox: {fileID: 0}
 --- !u!54 &2027650850
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -31479,8 +31590,8 @@ MonoBehaviour:
   - {fileID: 1015077031}
   ReceptacleTriggerBoxes:
   - {fileID: 1083394857}
-  isVisible: 0
-  isInteractable: 0
+  debugIsVisible: 0
+  debugIsInteractable: 0
   isInAgentHand: 0
   MyColliders: []
   HFdynamicfriction: 0
@@ -31500,6 +31611,7 @@ MonoBehaviour:
   IsReceptacle: 0
   IsPickupable: 0
   IsMoveable: 0
+  isStatic: 0
   IsToggleable: 0
   IsOpenable: 0
   IsBreakable: 0
@@ -31549,13 +31661,12 @@ MonoBehaviour:
   closedPositions:
   - {x: 0, y: 0, z: 0}
   animationTime: 0.2
+  triggerEnabled: 1
   currentOpenness: 1
   IgnoreTheseObjects: []
   isOpen: 0
   isCurrentlyResetting: 1
   movementType: 1
-  OpenBoundingBox: {fileID: 0}
-  ClosedBoundingBox: {fileID: 0}
 --- !u!54 &2027650855
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -31602,8 +31713,8 @@ MonoBehaviour:
   - {fileID: 1843475343}
   ReceptacleTriggerBoxes:
   - {fileID: 369995833}
-  isVisible: 0
-  isInteractable: 0
+  debugIsVisible: 0
+  debugIsInteractable: 0
   isInAgentHand: 0
   MyColliders: []
   HFdynamicfriction: 0
@@ -31623,6 +31734,7 @@ MonoBehaviour:
   IsReceptacle: 0
   IsPickupable: 0
   IsMoveable: 0
+  isStatic: 0
   IsToggleable: 0
   IsOpenable: 0
   IsBreakable: 0
@@ -31672,13 +31784,12 @@ MonoBehaviour:
   closedPositions:
   - {x: 0, y: 0, z: 0}
   animationTime: 0.2
+  triggerEnabled: 1
   currentOpenness: 1
   IgnoreTheseObjects: []
   isOpen: 0
   isCurrentlyResetting: 1
   movementType: 1
-  OpenBoundingBox: {fileID: 0}
-  ClosedBoundingBox: {fileID: 0}
 --- !u!54 &2027650860
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -31725,8 +31836,8 @@ MonoBehaviour:
   - {fileID: 1547250329}
   ReceptacleTriggerBoxes:
   - {fileID: 906311754}
-  isVisible: 0
-  isInteractable: 0
+  debugIsVisible: 0
+  debugIsInteractable: 0
   isInAgentHand: 0
   MyColliders: []
   HFdynamicfriction: 0
@@ -31746,6 +31857,7 @@ MonoBehaviour:
   IsReceptacle: 0
   IsPickupable: 0
   IsMoveable: 0
+  isStatic: 0
   IsToggleable: 0
   IsOpenable: 0
   IsBreakable: 0
@@ -31795,13 +31907,12 @@ MonoBehaviour:
   closedPositions:
   - {x: 0, y: 0, z: 0}
   animationTime: 0.2
+  triggerEnabled: 1
   currentOpenness: 1
   IgnoreTheseObjects: []
   isOpen: 0
   isCurrentlyResetting: 1
   movementType: 1
-  OpenBoundingBox: {fileID: 0}
-  ClosedBoundingBox: {fileID: 0}
 --- !u!54 &2027650865
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -31848,8 +31959,8 @@ MonoBehaviour:
   - {fileID: 2013852864}
   ReceptacleTriggerBoxes:
   - {fileID: 1422114177}
-  isVisible: 0
-  isInteractable: 0
+  debugIsVisible: 0
+  debugIsInteractable: 0
   isInAgentHand: 0
   MyColliders: []
   HFdynamicfriction: 0
@@ -31869,6 +31980,7 @@ MonoBehaviour:
   IsReceptacle: 0
   IsPickupable: 0
   IsMoveable: 0
+  isStatic: 0
   IsToggleable: 0
   IsOpenable: 0
   IsBreakable: 0
@@ -31918,13 +32030,12 @@ MonoBehaviour:
   closedPositions:
   - {x: 0, y: 0, z: 0}
   animationTime: 0.2
+  triggerEnabled: 1
   currentOpenness: 1
   IgnoreTheseObjects: []
   isOpen: 0
   isCurrentlyResetting: 1
   movementType: 1
-  OpenBoundingBox: {fileID: 0}
-  ClosedBoundingBox: {fileID: 0}
 --- !u!54 &2027650870
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -31971,8 +32082,8 @@ MonoBehaviour:
   - {fileID: 1374320046}
   ReceptacleTriggerBoxes:
   - {fileID: 1571729098}
-  isVisible: 0
-  isInteractable: 0
+  debugIsVisible: 0
+  debugIsInteractable: 0
   isInAgentHand: 0
   MyColliders: []
   HFdynamicfriction: 0
@@ -31992,6 +32103,7 @@ MonoBehaviour:
   IsReceptacle: 0
   IsPickupable: 0
   IsMoveable: 0
+  isStatic: 0
   IsToggleable: 0
   IsOpenable: 0
   IsBreakable: 0
@@ -36610,8 +36722,8 @@ MonoBehaviour:
   - {fileID: 853846617}
   ReceptacleTriggerBoxes:
   - {fileID: 0}
-  isVisible: 0
-  isInteractable: 0
+  debugIsVisible: 0
+  debugIsInteractable: 0
   isInAgentHand: 0
   MyColliders:
   - {fileID: 65066064403646202}
@@ -36632,6 +36744,7 @@ MonoBehaviour:
   IsReceptacle: 0
   IsPickupable: 0
   IsMoveable: 0
+  isStatic: 0
   IsToggleable: 0
   IsOpenable: 0
   IsBreakable: 0
@@ -36672,8 +36785,8 @@ MonoBehaviour:
   - {fileID: 4161848398568025}
   ReceptacleTriggerBoxes:
   - {fileID: 0}
-  isVisible: 0
-  isInteractable: 0
+  debugIsVisible: 0
+  debugIsInteractable: 0
   isInAgentHand: 0
   MyColliders: []
   HFdynamicfriction: 0
@@ -36693,6 +36806,7 @@ MonoBehaviour:
   IsReceptacle: 0
   IsPickupable: 0
   IsMoveable: 0
+  isStatic: 0
   IsToggleable: 0
   IsOpenable: 0
   IsBreakable: 0
@@ -36747,8 +36861,8 @@ MonoBehaviour:
   - {fileID: 4460108859368815}
   ReceptacleTriggerBoxes:
   - {fileID: 1775819178170917}
-  isVisible: 0
-  isInteractable: 0
+  debugIsVisible: 0
+  debugIsInteractable: 0
   isInAgentHand: 0
   MyColliders: []
   HFdynamicfriction: 0
@@ -36768,6 +36882,7 @@ MonoBehaviour:
   IsReceptacle: 0
   IsPickupable: 0
   IsMoveable: 0
+  isStatic: 0
   IsToggleable: 0
   IsOpenable: 0
   IsBreakable: 0
@@ -36799,8 +36914,8 @@ MonoBehaviour:
   VisibilityPoints:
   - {fileID: 4230839130721784}
   ReceptacleTriggerBoxes: []
-  isVisible: 0
-  isInteractable: 0
+  debugIsVisible: 0
+  debugIsInteractable: 0
   isInAgentHand: 0
   MyColliders: []
   HFdynamicfriction: 0
@@ -36820,6 +36935,7 @@ MonoBehaviour:
   IsReceptacle: 0
   IsPickupable: 0
   IsMoveable: 0
+  isStatic: 0
   IsToggleable: 0
   IsOpenable: 0
   IsBreakable: 0
@@ -36851,8 +36967,8 @@ MonoBehaviour:
   VisibilityPoints:
   - {fileID: 4230837012935540}
   ReceptacleTriggerBoxes: []
-  isVisible: 0
-  isInteractable: 0
+  debugIsVisible: 0
+  debugIsInteractable: 0
   isInAgentHand: 0
   MyColliders: []
   HFdynamicfriction: 0
@@ -36872,6 +36988,7 @@ MonoBehaviour:
   IsReceptacle: 0
   IsPickupable: 0
   IsMoveable: 0
+  isStatic: 0
   IsToggleable: 0
   IsOpenable: 0
   IsBreakable: 0
@@ -36903,8 +37020,8 @@ MonoBehaviour:
   VisibilityPoints:
   - {fileID: 4230837089581132}
   ReceptacleTriggerBoxes: []
-  isVisible: 0
-  isInteractable: 0
+  debugIsVisible: 0
+  debugIsInteractable: 0
   isInAgentHand: 0
   MyColliders: []
   HFdynamicfriction: 0
@@ -36924,6 +37041,7 @@ MonoBehaviour:
   IsReceptacle: 0
   IsPickupable: 0
   IsMoveable: 0
+  isStatic: 0
   IsToggleable: 0
   IsOpenable: 0
   IsBreakable: 0
@@ -36955,8 +37073,8 @@ MonoBehaviour:
   VisibilityPoints:
   - {fileID: 4230837935873239}
   ReceptacleTriggerBoxes: []
-  isVisible: 0
-  isInteractable: 0
+  debugIsVisible: 0
+  debugIsInteractable: 0
   isInAgentHand: 0
   MyColliders: []
   HFdynamicfriction: 0
@@ -36976,6 +37094,7 @@ MonoBehaviour:
   IsReceptacle: 0
   IsPickupable: 0
   IsMoveable: 0
+  isStatic: 0
   IsToggleable: 0
   IsOpenable: 0
   IsBreakable: 0

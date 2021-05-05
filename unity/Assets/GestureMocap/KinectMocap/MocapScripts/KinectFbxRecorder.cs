@@ -39,6 +39,9 @@ public class KinectFbxRecorder : MonoBehaviour
 	[Tooltip("UI-Text to display information messages.")]
 	public UnityEngine.UI.Text infoText;
 	
+	[Tooltip("UI-Text to display voice recognition messages.")]
+	public UnityEngine.UI.Text voiceText;
+	
 	[Tooltip("Whether to start recording, right after the scene starts.")]
 	public bool recordAtStart = false;
 
@@ -96,7 +99,7 @@ public class KinectFbxRecorder : MonoBehaviour
     private Animator animator;
     private HumanPoseHandler poseHandler; // to record and retarget animation
     [Tooltip("The maximum frame the animation is recorded.")]
-	public int maxFrameCount;
+	public int maxFrameCount = 100;
 	[Tooltip("The position this recording is referring to.")]
 	public Vector3 positionReferredTo = Vector3.zero;
 
@@ -180,15 +183,15 @@ public class KinectFbxRecorder : MonoBehaviour
 			
 			if(infoText != null)
 			{
-				infoText.text = "Press 'Space' to start the recording.";
+				infoText.text = "Say 'Start' or Press 'Space' to start the recording.";
 			}
 
 			//Debug.Log("Global FPS: " + MocapFbxWrapper.GetGlobalFps());
 
-			if(recordAtStart)
-			{
-				StartRecording();
-			}
+			// if(recordAtStart)
+			// {
+			// 	StartRecording();
+			// }
 		} 
 		catch (Exception ex) 
 		{
@@ -202,7 +205,7 @@ public class KinectFbxRecorder : MonoBehaviour
 		}
 
 		muscleCount = HumanTrait.MuscleCount; // count the number of muscles of the avatar
-        animationHumanPoses = new float[maxFrameCount, muscleCount];
+        animationHumanPoses = new float[maxFrameCount+10, muscleCount];
         currentMuscles = new float[muscleCount];
 
 		animator = avatarObject.GetComponent<Animator>();
@@ -359,8 +362,11 @@ public class KinectFbxRecorder : MonoBehaviour
 	/// Starts the recording.
 	/// </summary>
 	/// <returns><c>true</c>, if recording was started, <c>false</c> otherwise.</returns>
-	public bool StartRecording()
+	public bool StartRecording(string filename, ref GestureRecording recording)
 	{
+		animationName = filename;
+		recording.motion += filename + ".csv";
+
 		if(avatarObject == null)
 			return false;
 
@@ -425,6 +431,11 @@ public class KinectFbxRecorder : MonoBehaviour
 		{
 			infoText.text = "Press 'Space' to start the recorder.";
 		}
+
+		if (voiceText != null)
+		{
+			// voiceText.text = "N/A";
+		}
 	}
 
 	/// <summary>
@@ -469,7 +480,7 @@ public class KinectFbxRecorder : MonoBehaviour
 	// Save entire animation as a csv file
     public void SaveAnimation(string filename)
     {
-        string path = Application.dataPath + "/GestureMocap/Recordings/" + filename + ".csv";
+        string path = Application.dataPath + "/GestureMocap/Recordings/motions/" + filename + ".csv";
         TextWriter sw = new StreamWriter(path);
         string line;
 
@@ -503,10 +514,11 @@ public class KinectFbxRecorder : MonoBehaviour
 		}
 
 		// Add head line
-		sw.WriteLine("x;y;z;" + String.Join(";",Enumerable.Range(0,muscleCount)));
+		sw.WriteLine(String.Join(";",Enumerable.Range(0,muscleCount)));
         for (int frame = 0; frame < maxFrameCount; frame++) // run through all frames 
         {
-            line = $"{positionReferredTo.x};{positionReferredTo.y};{positionReferredTo.z};";
+            // line = $"{positionReferredTo.x};{positionReferredTo.y};{positionReferredTo.z};";
+			line = "";
             for (int i = 0; i < muscleCount; i++) // and all values composing one Pose
             {
                 line = line + animationHumanPoses[frame, i].ToString() + (i==muscleCount-1? "":";");
