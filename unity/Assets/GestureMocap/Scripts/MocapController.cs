@@ -35,8 +35,14 @@ public class MocapController : MonoBehaviour
     public SimObjType targetObjType;
 
     private string sceneName;
+    private int sceneNum;
+    private Mode mode = Mode.none;
 
     private List<GameObject> spawnedObjects;
+
+    private int recordingCount = 0; // recording count is used to keep track of the number of recordings that should be done for each scene
+    private int targetCount;
+    public int maxRecordingCount = 15;
 
     private void Start() 
     {
@@ -46,8 +52,19 @@ public class MocapController : MonoBehaviour
         human = GameObject.Find("HumanMocapAnimator").transform;
 
         sceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name.Split('_')[0];
+        sceneNum = int.Parse(sceneName.Substring(9));
+        if(sceneNum%500<=20) mode = Mode.train; // Check if we should save recordings as in train/val/test dataset
+        else if(sceneNum%500<=25) mode = Mode.val;
+        else if(sceneNum%500<=30) mode = Mode.test;
+        if (mode == Mode.none)
+        {
+            Debug.LogError("You must have a valid scenen number between 1-30!");
+            return;
+        }
 
-        spawnedObjects = FindObjectOfType<PhysicsSceneManager>().SpawnedObjects;
+        spawnedObjects = FindObjectOfType<PhysicsSceneManager>().SpawnedObjects.Where(type => Enum.IsDefined(typeof(TargetObjType), target.GetComponent<SimObjPhysics>().ObjType.ToString()) && type.transform.parent.name!="Objects").ToList();
+        spawnedObjects.Shuffle_();
+        targetCount = spawnedObjects.Count;
 
         // Initialize the motion recorder
         motionRecorder = FindObjectOfType<KinectFbxRecorder>();
@@ -151,13 +168,29 @@ public class MocapController : MonoBehaviour
                 isRecording = false;
 
                 CamCapture(recordingCam, filename, ref gestureRecording);
-                motionRecorder.StartRecording(filename, ref gestureRecording);
+                motionRecorder.StartRecording(filename, mode, ref gestureRecording);
                 audioRecorder.Save(ref gestureRecording, filename);
                 LogEnvironmentInfo(ref gestureRecording);
                 SaveRecording(filename, gestureRecording);
 
+                // Check if the maximum number of recording is reached
+                if (recordingCount >= maxRecordingCount)
+                {
+                    // Switch to the next scene
+                    int nextSceneIndex = UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex;
+                    if (nextSceneIndex==UnityEngine.SceneManagement.SceneManager.sceneCountInBuildSettings-1)
+                    {
+                        #if UNITY_EDITOR
+                        UnityEditor.EditorApplication.isPlaying = false;
+                        #else
+                        Application.Quit();
+                        #endif
+                    }
+                    UnityEngine.SceneManagement.SceneManager.LoadScene(nextSceneIndex+1);
+                }
+
                 if (!SelectTarget()) {infoText.text="Target not selected"; return;}
-                infoText.text = $"Please speak an instruction with {targetObjType.ToString()}: ";
+                infoText.text = $" This is the {recordingCount} recording. \n Please speak an instruction with {targetObjType.ToString()}: ";
             }
         }
     }
@@ -166,16 +199,10 @@ public class MocapController : MonoBehaviour
     {
         // Destroy current dicator first
         if (currentIndicator) Destroy(currentIndicator);
-        int t = 0;
-        bool targetFound = false;
-        while(t<100)
-        {
-            target = spawnedObjects[UnityEngine.Random.Range(0, spawnedObjects.Count)].transform;
-            targetObjType = target.GetComponent<SimObjPhysics>().ObjType;
-            // Check if the target object type is possible and not contained in a receptable
-            if(Enum.IsDefined(typeof(TargetObjType), targetObjType.ToString()) && target.parent.name=="Objects") {targetFound = true; break;}
-        }
-        if(!targetFound) 
+        target = spawnedObjects[recordingCount%targetCount].transform;
+        targetObjType = target.GetComponent<SimObjPhysics>().ObjType;
+
+        if(target == null) 
         {
             infoText.text = "Cannot find a target object!";
             return false;
@@ -194,7 +221,7 @@ public class MocapController : MonoBehaviour
     private void LogEnvironmentInfo(ref GestureRecording recording)
     {
         // Log room type and number
-        int sceneNum = int.Parse(sceneName.Substring(9));
+        sceneNum = int.Parse(sceneName.Substring(9));
         recording.sceneNum = sceneNum;
         if (sceneNum <= 30) recording.sceneType = "Kitchen";
         else if (sceneNum <= 300) recording.sceneType = "LivingRoom";
@@ -277,14 +304,14 @@ public class MocapController : MonoBehaviour
         var Bytes = Image.EncodeToPNG();
         Destroy(Image);
  
-        File.WriteAllBytes(Application.dataPath + "/GestureMocap/Recordings/images/" + filename + ".png", Bytes);
+        File.WriteAllBytes(Application.dataPath + $"/GestureMocap/Recordings/{mode.ToString()}/images/" + filename + ".png", Bytes);
         recording.image += filename + ".png";
     }
 
     // Save GestureRecording object as a JSON file format
     public void SaveRecording(string fileName, GestureRecording recording)
     {
-        string path = Application.dataPath + "/GestureMocap/Recordings/" + filename + ".json";
+        string path = Application.dataPath + $"/GestureMocap/Recordings/{mode.ToString()}/summaries/" + filename + ".json";
         if (File.Exists(path))
         {
             File.Delete(path);
@@ -298,13 +325,25 @@ public class MocapController : MonoBehaviour
 /// </summary>
 public enum TargetObjType: int
 {
-    Apple = 0,
-	Tomato = 1,
-	Bread = 2,
-	Knife = 4,
-	Fork = 5,
-	Spoon = 6,
-	Potato = 7,
-	Plate = 8,
-	Cup = 9
+    // Kitchen (9)
+    Apple,
+	Tomato,
+	Bread,
+	Knife,
+	Fork,
+	Spoon,
+	Potato,
+	Plate,
+	Cup,
+    // LivingRoom ()
+
+}
+
+// The current mode of recording
+public enum Mode
+{
+    none,
+    train,
+    val,
+    test,
 }

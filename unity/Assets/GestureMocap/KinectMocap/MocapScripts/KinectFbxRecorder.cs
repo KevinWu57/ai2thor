@@ -103,6 +103,8 @@ public class KinectFbxRecorder : MonoBehaviour
 	[Tooltip("The position this recording is referring to.")]
 	public Vector3 positionReferredTo = Vector3.zero;
 
+	private Mode mode = Mode.none;
+
     void Awake()
 	{
 		try 
@@ -362,7 +364,7 @@ public class KinectFbxRecorder : MonoBehaviour
 	/// Starts the recording.
 	/// </summary>
 	/// <returns><c>true</c>, if recording was started, <c>false</c> otherwise.</returns>
-	public bool StartRecording(string filename, ref GestureRecording recording)
+	public bool StartRecording(string filename, Mode recordingMode, ref GestureRecording recording)
 	{
 		animationName = filename;
 		recording.motion += filename + ".csv";
@@ -374,6 +376,8 @@ public class KinectFbxRecorder : MonoBehaviour
 			return false;
 
 		isRecording = true;
+
+		mode = recordingMode;
 		
 		if(isRecording)
 		{
@@ -480,7 +484,7 @@ public class KinectFbxRecorder : MonoBehaviour
 	// Save entire animation as a csv file
     public void SaveAnimation(string filename)
     {
-        string path = Application.dataPath + "/GestureMocap/Recordings/motions/" + filename + ".csv";
+        string path = Application.dataPath + $"/GestureMocap/Recordings/{mode.ToString()}/motions/" + filename + ".csv";
         TextWriter sw = new StreamWriter(path);
         string line;
 
