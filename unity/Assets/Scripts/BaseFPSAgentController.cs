@@ -222,6 +222,7 @@ namespace UnityStandardAssets.Characters.FirstPerson {
             this.m_RunSpeed = 10;
             this.m_GravityMultiplier = 2;
 
+            agentManager = GameObject.Find("PhysicsSceneManager").GetComponentInChildren<AgentManager>();
         }
 
         // Use this for initialization
@@ -241,8 +242,6 @@ namespace UnityStandardAssets.Characters.FirstPerson {
             // record initial positions and rotations
             init_position = transform.position;
             init_rotation = transform.rotation;
-
-            agentManager = GameObject.Find("PhysicsSceneManager").GetComponentInChildren<AgentManager>();
 
             // default nav mesh agent to false cause WHY DOES THIS BREAK THINGS I GUESS IT DOESN TLIKE TELEPORTING
             this.GetComponent<NavMeshAgent>().enabled = false;

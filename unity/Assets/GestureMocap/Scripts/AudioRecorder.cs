@@ -117,7 +117,7 @@ public class AudioRecorder : MonoBehaviour
         
     }
 
-    public void Save(ref GestureRecording recording, string fileName="test") 
+    public void Save(ref GestureRecording recording, Mode recordingMode, string fileName="test") 
     {
         if (!Microphone.IsRecording(Microphone.devices[0]))
         {
@@ -128,7 +128,7 @@ public class AudioRecorder : MonoBehaviour
         while (!(Microphone.GetPosition(null) > 0)) { }
         samplesData = new float[audioSource.clip.samples * audioSource.clip.channels];
         audioSource.clip.GetData(samplesData, 0);
-        string filePath = Path.Combine(Application.dataPath+"/GestureMocap/Recordings/audios/", fileName + ".wav");
+        string filePath = Path.Combine(Application.dataPath+$"/GestureMocap/Recordings/{recordingMode}/audios/", fileName + ".wav");
         // Delete the file if it exists.
         if (File.Exists(filePath))
         {

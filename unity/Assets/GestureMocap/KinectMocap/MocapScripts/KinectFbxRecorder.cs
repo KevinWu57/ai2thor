@@ -104,6 +104,7 @@ public class KinectFbxRecorder : MonoBehaviour
 	public Vector3 positionReferredTo = Vector3.zero;
 
 	private Mode mode = Mode.none;
+	private MocapController mocapController;
 
     void Awake()
 	{
@@ -132,6 +133,13 @@ public class KinectFbxRecorder : MonoBehaviour
 			// 	int iTimeMode = (int)animationTimeMode;
 			// 	MocapFbxWrapper.SetGlobalTimeMode(iTimeMode, MocapFbxWrapper.FrameRates[iTimeMode]);
 			// }
+
+			avatarCtrl = FindObjectOfType<AvatarController>();
+			avatarObject = avatarCtrl.gameObject;
+
+			mocapController = FindObjectOfType<MocapController>();
+
+			InstantiateHumanAvatar();
 		} 
 		catch (Exception ex) 
 		{
@@ -156,11 +164,6 @@ public class KinectFbxRecorder : MonoBehaviour
 
 		try 
 		{
-			avatarCtrl = FindObjectOfType<AvatarController>();
-			avatarObject = avatarCtrl.gameObject;
-
-			InstantiateHumanAvatar();
-
 			// check the KinectManager availability
 			if(!manager)
 			{
@@ -429,6 +432,8 @@ public class KinectFbxRecorder : MonoBehaviour
 			{
 				infoText.text = "Recording stopped.";
 			}
+
+			mocapController.LogAllInfo();
 		}
 
 		if(infoText != null)

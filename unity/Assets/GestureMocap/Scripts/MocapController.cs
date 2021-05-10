@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Windows.Speech;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class MocapController : MonoBehaviour
 {
@@ -32,13 +33,14 @@ public class MocapController : MonoBehaviour
 
     private Transform human;
     public Transform target;
-    public SimObjType targetObjType;
+    public TargetObjType targetObjType;
 
     private string sceneName;
     private int sceneNum;
     private Mode mode = Mode.none;
 
-    private List<GameObject> spawnedObjects;
+    private List<GameObject> selectableObjects;
+    private Vector3[] selectablePositions;
 
     private int recordingCount = 0; // recording count is used to keep track of the number of recordings that should be done for each scene
     private int targetCount;
@@ -53,18 +55,22 @@ public class MocapController : MonoBehaviour
 
         sceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name.Split('_')[0];
         sceneNum = int.Parse(sceneName.Substring(9));
-        if(sceneNum%500<=20) mode = Mode.train; // Check if we should save recordings as in train/val/test dataset
-        else if(sceneNum%500<=25) mode = Mode.val;
-        else if(sceneNum%500<=30) mode = Mode.test;
+        if(sceneNum%100<=20) mode = Mode.train; // Check if we should save recordings as in train/val/test dataset
+        else if(sceneNum%100<=25) mode = Mode.val;
+        else if(sceneNum%100<=30) mode = Mode.test;
         if (mode == Mode.none)
         {
             Debug.LogError("You must have a valid scenen number between 1-30!");
             return;
         }
 
-        spawnedObjects = FindObjectOfType<PhysicsSceneManager>().SpawnedObjects.Where(type => Enum.IsDefined(typeof(TargetObjType), target.GetComponent<SimObjPhysics>().ObjType.ToString()) && type.transform.parent.name!="Objects").ToList();
-        spawnedObjects.Shuffle_();
-        targetCount = spawnedObjects.Count;
+        // selectableObjects = FindObjectOfType<PhysicsSceneManager>().SpawnedObjects.Where(type => Enum.IsDefined(typeof(TargetObjType), target.GetComponent<SimObjPhysics>().ObjType.ToString()) && type.transform.parent.name!="Objects").ToList();
+        selectableObjects = FindObjectOfType<PhysicsSceneManager>().ObjectIdToSimObjPhysics.Where(item => Enum.GetNames(typeof(TargetObjType)).Any(s => item.Key.ToLower().Contains(s.ToLower()))).Select(item => item.Value.gameObject).ToList();
+        selectableObjects.Shuffle_();
+        targetCount = selectableObjects.Count;
+
+        // Get selectable positions for the human
+        selectablePositions = GameObject.Find("FPSController").GetComponent<PhysicsRemoteFPSAgentController>().getReachablePositions();
 
         // Initialize the motion recorder
         motionRecorder = FindObjectOfType<KinectFbxRecorder>();
@@ -148,6 +154,9 @@ public class MocapController : MonoBehaviour
                 gestureRecording = new GestureRecording();
 
                 audioRecorder.StartRecording();
+
+                // Randomly position the agent
+                RandomizeHuman(GameObject.Find("HumanMocapAnimator").transform, selectablePositions, target.position);
             }
         }
         else
@@ -167,11 +176,8 @@ public class MocapController : MonoBehaviour
             {
                 isRecording = false;
 
-                CamCapture(recordingCam, filename, ref gestureRecording);
+                
                 motionRecorder.StartRecording(filename, mode, ref gestureRecording);
-                audioRecorder.Save(ref gestureRecording, filename);
-                LogEnvironmentInfo(ref gestureRecording);
-                SaveRecording(filename, gestureRecording);
 
                 // Check if the maximum number of recording is reached
                 if (recordingCount >= maxRecordingCount)
@@ -190,17 +196,25 @@ public class MocapController : MonoBehaviour
                 }
 
                 if (!SelectTarget()) {infoText.text="Target not selected"; return;}
-                infoText.text = $" This is the {recordingCount} recording. \n Please speak an instruction with {targetObjType.ToString()}: ";
+                infoText.text = $" This is the {recordingCount} recording. \n Please speak an instruction with {targetObjType.ToString()}: \n You can choose a verb from the following: {String.Join(", ", verbs)}";
             }
         }
+    }
+
+    public void LogAllInfo()
+    {
+        CamCapture(recordingCam, filename, ref gestureRecording);
+        audioRecorder.Save(ref gestureRecording, mode, filename);
+        LogEnvironmentInfo(ref gestureRecording);
+        SaveRecording(filename, gestureRecording);
     }
 
     private bool SelectTarget()
     {
         // Destroy current dicator first
         if (currentIndicator) Destroy(currentIndicator);
-        target = spawnedObjects[recordingCount%targetCount].transform;
-        targetObjType = target.GetComponent<SimObjPhysics>().ObjType;
+        target = selectableObjects[recordingCount%targetCount].transform;
+        targetObjType = (TargetObjType)Enum.Parse(typeof(TargetObjType), Enum.GetNames(typeof(TargetObjType)).Where(s => target.GetComponent<SimObjPhysics>().Type.ToString().ToLower().Contains(s.ToLower())).ToArray()[0]);
 
         if(target == null) 
         {
@@ -234,7 +248,7 @@ public class MocapController : MonoBehaviour
 
         // Log target information
         recording.targetPos = target.position/10f;
-        recording.targetType = target.GetComponent<SimObjPhysics>().ObjType.ToString();
+        recording.targetType = targetObjType.ToString();
         recording.targetToHuman = recording.targetPos - recording.humanPos;
     }
 
@@ -285,6 +299,23 @@ public class MocapController : MonoBehaviour
         }
     }
 
+    private bool RandomizeHuman(Transform human, Vector3[] selectablePositions, Vector3 targetPos)
+    {
+        if (human == null || selectablePositions == null || targetPos == null)
+        {
+            Debug.LogError("Cannot randomize the human position and rotation");
+            return false;
+        }
+        // First, let's position the human in the selected positions
+        Vector3 selectedPosition = selectablePositions[UnityEngine.Random.Range(0,selectablePositions.Length)];
+        human.position = new Vector3(selectedPosition.x, human.position.y, selectedPosition.z);
+        // Second, let's make the human face the target first
+        human.LookAt(new Vector3(targetPos.x, human.position.y, targetPos.z));
+        // Third, let's randomly rotate the human in (-90,90)
+        human.Rotate(human.up, UnityEngine.Random.Range(-90f,90f));
+        return true;
+    }
+
     // Capture camera image
     public void CamCapture(Camera Cam, string filename, ref GestureRecording recording)
     {
@@ -318,6 +349,10 @@ public class MocapController : MonoBehaviour
         }
         File.WriteAllText(path, JsonUtility.ToJson(recording));
     }
+
+    private static string[] verbs = new string[]{
+        "Go", "Bring", "Take", "Pick", "Clean", "Open", "Close", "Turn", "Find", "Remove", "Want", "Need"
+    };
 }
 
 /// <summary>
@@ -335,8 +370,27 @@ public enum TargetObjType: int
 	Potato,
 	Plate,
 	Cup,
-    // LivingRoom ()
-
+    // LivingRoom (3)
+    Television,
+    Newspaper,
+    Remote,
+    // Bedroom (4),
+    Clock,
+    Bed,
+    Poster,
+    BasketBall,
+    // Bathroom (3)
+    Plunger,
+    Toilet,
+    Towel,
+    // All (7)
+    Box,
+    Candle,
+    Chair,
+    Window,
+    Table,
+    Lamp,
+    Laptop,
 }
 
 // The current mode of recording
