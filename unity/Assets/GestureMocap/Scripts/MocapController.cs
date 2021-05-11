@@ -42,7 +42,7 @@ public class MocapController : MonoBehaviour
     private List<GameObject> selectableObjects;
     private Vector3[] selectablePositions;
 
-    private int recordingCount = 0; // recording count is used to keep track of the number of recordings that should be done for each scene
+    public int recordingCount = 0; // recording count is used to keep track of the number of recordings that should be done for each scene
     private int targetCount;
     public int maxRecordingCount = 15;
 
@@ -184,28 +184,9 @@ public class MocapController : MonoBehaviour
             {
                 isRecording = false;
 
+                recordingCount += 1;
                 
                 motionRecorder.StartRecording(filename, mode, ref gestureRecording);
-                
-                recordingCount += 1;
-
-                // Check if the maximum number of recording is reached
-                if (recordingCount >= maxRecordingCount)
-                {
-                    // Switch to the next scene
-                    int nextSceneIndex = UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex;
-                    if (nextSceneIndex==UnityEngine.SceneManagement.SceneManager.sceneCountInBuildSettings-1)
-                    {
-                        #if UNITY_EDITOR
-                        UnityEditor.EditorApplication.isPlaying = false;
-                        #else
-                        Application.Quit();
-                        #endif
-                    }
-                    CloseDictationEngine();
-                    UnityEngine.SceneManagement.SceneManager.LoadScene(nextSceneIndex+1);
-                    return;
-                }
 
                 if (!SelectTarget()) {infoText.text="Target not selected"; return;}
                 infoText.text = $" This is the No. {recordingCount+1} recording. \n Please speak an instruction with {targetObjType.ToString()}: \n You can choose a verb from the following: {String.Join(", ", verbs)}";
@@ -219,6 +200,30 @@ public class MocapController : MonoBehaviour
         audioRecorder.Save(ref gestureRecording, mode, filename);
         LogEnvironmentInfo(ref gestureRecording);
         SaveRecording(filename, gestureRecording);
+    }
+
+
+    /// <summary>
+    /// Switch to the next scene in build settings when the number of recordings is satisfied.
+    /// </summary>
+    public void SwitchScene()
+    {
+        // Check if the maximum number of recording is reached
+        if (recordingCount >= maxRecordingCount)
+        {
+            // Switch to the next scene
+            int nextSceneIndex = UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex;
+            if (nextSceneIndex==UnityEngine.SceneManagement.SceneManager.sceneCountInBuildSettings-1)
+            {
+                #if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+                #else
+                Application.Quit();
+                #endif
+            }
+            CloseDictationEngine();
+            UnityEngine.SceneManagement.SceneManager.LoadScene(nextSceneIndex+1);
+        }
     }
 
     private bool SelectTarget()

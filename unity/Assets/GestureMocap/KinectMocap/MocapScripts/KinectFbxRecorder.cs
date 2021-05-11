@@ -457,6 +457,12 @@ public class KinectFbxRecorder : MonoBehaviour
 		{
 			// voiceText.text = "N/A";
 		}
+
+		// Switch scene
+		if (mocapController.recordingCount >= mocapController.maxRecordingCount)
+		{
+			mocapController.SwitchScene();
+		}
 	}
 
 	/// <summary>
