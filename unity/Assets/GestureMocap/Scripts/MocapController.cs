@@ -154,9 +154,6 @@ public class MocapController : MonoBehaviour
                 gestureRecording = new GestureRecording();
 
                 audioRecorder.StartRecording();
-
-                // Randomly position the agent
-                RandomizeHuman(GameObject.Find("HumanMocapAnimator").transform, selectablePositions, target.position);
             }
 
             if(text == "stop")
@@ -165,6 +162,7 @@ public class MocapController : MonoBehaviour
                 if (motionRecorder.IsRecording())
                 {
                     motionRecorder.StopRecording(false);
+                    maxRecordingCount += 1; // we need one more recording
                 }
             }
         }
@@ -311,11 +309,11 @@ public class MocapController : MonoBehaviour
         }
     }
 
-    private bool RandomizeHuman(Transform human, Vector3[] selectablePositions, Vector3 targetPos)
+    public bool RandomizeHuman(Transform human)
     {
         KinectManager km = KinectManager.Instance;
         km.enabled = false;
-        if (human == null || selectablePositions == null || targetPos == null)
+        if (human == null || selectablePositions == null || target.position == null)
         {
             Debug.LogError("Cannot randomize the human position and rotation");
             return false;
@@ -324,7 +322,7 @@ public class MocapController : MonoBehaviour
         Vector3 selectedPosition = selectablePositions[UnityEngine.Random.Range(0,selectablePositions.Length)];
         human.position = new Vector3(selectedPosition.x, human.position.y, selectedPosition.z);
         // Second, let's make the human face the target first
-        human.LookAt(new Vector3(targetPos.x, human.position.y, targetPos.z));                 
+        human.LookAt(new Vector3(target.position.x, human.position.y, target.position.z));                 
         // Third, let's randomly rotate the human in (-90,90)
         human.Rotate(human.up, UnityEngine.Random.Range(-90f,90f));
         km.enabled = true;

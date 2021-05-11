@@ -425,9 +425,6 @@ public class KinectFbxRecorder : MonoBehaviour
 			{
 				// Save the animation as csv
 				SaveAnimation(animationName);
-			}
-			else
-			{
 				mocapController.LogAllInfo();
 			}
 
@@ -439,11 +436,21 @@ public class KinectFbxRecorder : MonoBehaviour
 			{
 				infoText.text = "Recording stopped.";
 			}
+
+			// Randomly position the agent
+            mocapController.RandomizeHuman(GameObject.Find("HumanMocapAnimator").transform);
 		}
 
 		if(infoText != null)
 		{
-			infoText.text = "Say 'Start' or press 'Space' to start the recorder.";
+			if (saveRecording)
+			{
+				infoText.text = "All info saved correctly. Say 'Start' or press 'Space' to start the recorder.";
+			}
+			else
+			{
+				infoText.text = "Recording is interrupted. Say 'Start' or press 'Space' to start the recorder.";
+			}
 		}
 
 		if (voiceText != null)
