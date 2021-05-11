@@ -256,7 +256,7 @@ public class KinectFbxRecorder : MonoBehaviour
 
 						for (int i = 0; i < muscleCount; i++) 
 						{
-							animationHumanPoses[iSavedFrame-1, i] = (float)System.Math.Round(currentPose.muscles[i],3); // round to 3 decimal places
+							animationHumanPoses[iSavedFrame-1, i] = Mathf.Clamp((float)System.Math.Round(currentPose.muscles[i],3), -1f, 1f); // round to 3 decimal places
 						}
 
 						if (iSavedFrame >= maxFrameCount)

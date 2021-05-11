@@ -15,6 +15,7 @@ public class GestureReplayEditor : Editor
 
         mScript.filePath = EditorGUILayout.TextField("Loaded file path", mScript.filePath);
         mScript.modelName = EditorGUILayout.TextField("Loaded model name", mScript.modelName);
+        mScript.mode = (Mode)EditorGUILayout.EnumPopup("Train/Val/Test", mScript.mode);
 
         if(GUILayout.Button("Play Gesture from CSV File"))
         {

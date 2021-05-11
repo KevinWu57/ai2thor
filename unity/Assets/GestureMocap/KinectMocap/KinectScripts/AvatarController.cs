@@ -401,6 +401,23 @@ public class AvatarController : MonoBehaviour
 		}
 	}
 
+	public void ResetInitialTransform()
+	{
+		// get the pose handler reference
+		if (animatorComponent && animatorComponent.avatar && animatorComponent.avatar.isHuman) 
+		{
+			//Transform hipsTransform = animator.GetBoneTransform(HumanBodyBones.Hips);
+			//Transform rootTransform = hipsTransform.parent;
+			Transform rootTransform = transform;
+
+			humanPoseHandler = new HumanPoseHandler(animatorComponent.avatar, rootTransform);
+			humanPoseHandler.GetHumanPose(ref humanPose);
+
+			initialHipsPosition = (humanPose.bodyPosition - rootTransform.position);  // hipsTransform.position
+			initialHipsRotation = humanPose.bodyRotation;
+		}
+	}
+
 
 	// applies the muscle limits for humanoid avatar
 	private void CheckMuscleLimits()

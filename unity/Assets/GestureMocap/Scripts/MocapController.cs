@@ -301,6 +301,8 @@ public class MocapController : MonoBehaviour
 
     private bool RandomizeHuman(Transform human, Vector3[] selectablePositions, Vector3 targetPos)
     {
+        KinectManager km = KinectManager.Instance;
+        km.enabled = false;
         if (human == null || selectablePositions == null || targetPos == null)
         {
             Debug.LogError("Cannot randomize the human position and rotation");
@@ -310,9 +312,11 @@ public class MocapController : MonoBehaviour
         Vector3 selectedPosition = selectablePositions[UnityEngine.Random.Range(0,selectablePositions.Length)];
         human.position = new Vector3(selectedPosition.x, human.position.y, selectedPosition.z);
         // Second, let's make the human face the target first
-        human.LookAt(new Vector3(targetPos.x, human.position.y, targetPos.z));
+        human.LookAt(new Vector3(targetPos.x, human.position.y, targetPos.z));                 
         // Third, let's randomly rotate the human in (-90,90)
         human.Rotate(human.up, UnityEngine.Random.Range(-90f,90f));
+        km.enabled = true;
+        FindObjectOfType<AvatarController>().ResetInitialTransform(); // TODO: need to find another way to make it work
         return true;
     }
 

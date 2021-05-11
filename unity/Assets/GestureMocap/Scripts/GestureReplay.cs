@@ -27,6 +27,7 @@ public class GestureReplay : MonoBehaviour
     // replay from neural network
     // public NNModel model;
     // private Model m_RuntimeModel;
+    public Mode mode = Mode.train;
 
 
     void FixedUpdate()
@@ -65,7 +66,7 @@ public class GestureReplay : MonoBehaviour
         // humanMocapAnimator.GetComponent<Animator>().runtimeAnimatorController = null;
 
         string path = Directory.GetCurrentDirectory();
-        path = path + "/Assets/GestureMocap/Recordings/motions/" + (loadedFile.EndsWith(".csv")? loadedFile:(loadedFile+".csv"));
+        path = path + $"/Assets/GestureMocap/Recordings/{mode.ToString()}/motions/" + (loadedFile.EndsWith(".csv")? loadedFile:(loadedFile+".csv"));
 
         try
         {
