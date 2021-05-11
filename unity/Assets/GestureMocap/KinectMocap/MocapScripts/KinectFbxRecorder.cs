@@ -387,7 +387,7 @@ public class KinectFbxRecorder : MonoBehaviour
 			Debug.Log("Recording started.");
 			if(infoText != null)
 			{
-				infoText.text = "Recording... Press 'Space' again to stop the recorder.";
+				infoText.text = $"Recording... Say 'Stop' or press 'Space' again to stop the recorder. The recorder will stop after {maxFrameCount} frames.";
 			}
 
 			// initialize times
@@ -417,12 +417,19 @@ public class KinectFbxRecorder : MonoBehaviour
 	/// <summary>
 	/// Stops the recording.
 	/// </summary>
-	public void StopRecording()
+	public void StopRecording(bool saveRecording = true)
 	{
 		if(isRecording)
 		{
-			// Save the animation as csv
-			SaveAnimation(animationName);
+			if(saveRecording)
+			{
+				// Save the animation as csv
+				SaveAnimation(animationName);
+			}
+			else
+			{
+				mocapController.LogAllInfo();
+			}
 
 			// SaveOutputFileIfNeeded();
 			isRecording = false;
@@ -432,13 +439,11 @@ public class KinectFbxRecorder : MonoBehaviour
 			{
 				infoText.text = "Recording stopped.";
 			}
-
-			mocapController.LogAllInfo();
 		}
 
 		if(infoText != null)
 		{
-			infoText.text = "Press 'Space' to start the recorder.";
+			infoText.text = "Say 'Start' or press 'Space' to start the recorder.";
 		}
 
 		if (voiceText != null)

@@ -81,7 +81,7 @@ public class MocapController : MonoBehaviour
         StartDictationEngine();
 
         if(!SelectTarget()) return;
-        infoText.text = $"Please speak an instruction with {targetObjType.ToString()}: ";
+        infoText.text = $" This is the No. {recordingCount+1} recording. \n Please speak an instruction with {targetObjType.ToString()}: \n You can choose a verb from the following: {String.Join(", ", verbs)}";
     }
 
     /// <summary>
@@ -158,6 +158,15 @@ public class MocapController : MonoBehaviour
                 // Randomly position the agent
                 RandomizeHuman(GameObject.Find("HumanMocapAnimator").transform, selectablePositions, target.position);
             }
+
+            if(text == "stop")
+            {
+                // Terminate recording
+                if (motionRecorder.IsRecording())
+                {
+                    motionRecorder.StopRecording(false);
+                }
+            }
         }
         else
         {
@@ -193,10 +202,13 @@ public class MocapController : MonoBehaviour
                         #endif
                     }
                     UnityEngine.SceneManagement.SceneManager.LoadScene(nextSceneIndex+1);
+                    return;
                 }
+                
+                recordingCount += 1;
 
                 if (!SelectTarget()) {infoText.text="Target not selected"; return;}
-                infoText.text = $" This is the {recordingCount} recording. \n Please speak an instruction with {targetObjType.ToString()}: \n You can choose a verb from the following: {String.Join(", ", verbs)}";
+                infoText.text = $" This is the No. {recordingCount+1} recording. \n Please speak an instruction with {targetObjType.ToString()}: \n You can choose a verb from the following: {String.Join(", ", verbs)}";
             }
         }
     }
