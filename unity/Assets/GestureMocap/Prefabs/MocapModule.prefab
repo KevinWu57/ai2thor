@@ -9481,7 +9481,7 @@ MonoBehaviour:
   targetIndicator: {fileID: 7965720450955941863, guid: c99e101af2096184c868329b8d480666,
     type: 3}
   currentIndicator: {fileID: 0}
-  confidence: 0
+  confidence: 1
   infoText: {fileID: 8361732138068640973}
   target: {fileID: 0}
   targetObjType: 0

@@ -70,12 +70,12 @@ public class AudioRecorder : MonoBehaviour
 
     #region Recorder Functions
 
-    public void StartRecording(bool loop=false, int lengthSec=6, int frequency=44100)
+    public void StartRecording(bool loop=true, int lengthSec=6, int frequency=44100)
     {
         audioSource.clip = Microphone.Start(Microphone.devices[0], loop, lengthSec, frequency);
     }
 
-    public void RestartRecording(bool loop=false, int lengthSec=6, int frequency=44100)
+    public void RestartRecording(bool loop=true, int lengthSec=6, int frequency=44100)
     {
         if(Microphone.IsRecording(Microphone.devices[0])) 
         {
@@ -121,7 +121,7 @@ public class AudioRecorder : MonoBehaviour
     {
         if (!Microphone.IsRecording(Microphone.devices[0]))
         {
-            Debug.LogWarning("You should start the audio recording before saving it.");
+            Debug.LogError("You should start the audio recording before saving it.");
             return;
         }
 

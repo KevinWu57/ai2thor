@@ -50,6 +50,7 @@ public class MocapController : MonoBehaviour
     {
         audioRecorder = FindObjectOfType<AudioRecorder>();
         recordingCam = GameObject.Find("Neck").GetComponent<Camera>();
+        maxRecordingCount = UnityEngine.Random.Range(10, 16);
 
         human = GameObject.Find("HumanMocapAnimator").transform;
 
@@ -185,6 +186,8 @@ public class MocapController : MonoBehaviour
 
                 
                 motionRecorder.StartRecording(filename, mode, ref gestureRecording);
+                
+                recordingCount += 1;
 
                 // Check if the maximum number of recording is reached
                 if (recordingCount >= maxRecordingCount)
@@ -199,11 +202,10 @@ public class MocapController : MonoBehaviour
                         Application.Quit();
                         #endif
                     }
+                    CloseDictationEngine();
                     UnityEngine.SceneManagement.SceneManager.LoadScene(nextSceneIndex+1);
                     return;
                 }
-                
-                recordingCount += 1;
 
                 if (!SelectTarget()) {infoText.text="Target not selected"; return;}
                 infoText.text = $" This is the No. {recordingCount+1} recording. \n Please speak an instruction with {targetObjType.ToString()}: \n You can choose a verb from the following: {String.Join(", ", verbs)}";
