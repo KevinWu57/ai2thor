@@ -127,13 +127,6 @@
         "com.unity.modules.ui": "1.0.0"
       }
     },
-    "com.unity.xr.oculus.standalone": {
-      "version": "2.38.4",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://packages.unity.com"
-    },
     "jillejr.newtonsoft.json-for-unity": {
       "version": "12.0.301",
       "depth": 0,

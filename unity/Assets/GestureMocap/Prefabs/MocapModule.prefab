@@ -69,7 +69,7 @@ MonoBehaviour:
     m_FontSize: 16
     m_FontStyle: 0
     m_BestFit: 1
-    m_MinSize: 2
+    m_MinSize: 5
     m_MaxSize: 70
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -132,7 +132,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 8361732138753465721}
-  m_PlaneDistance: 1
+  m_PlaneDistance: 0.5
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -9481,10 +9481,11 @@ MonoBehaviour:
   targetIndicator: {fileID: 7965720450955941863, guid: c99e101af2096184c868329b8d480666,
     type: 3}
   currentIndicator: {fileID: 0}
-  confidence: 1
+  confidence: 2
   infoText: {fileID: 8361732138068640973}
   target: {fileID: 0}
   targetObjType: 0
+  recordingCount: 0
   maxRecordingCount: 12
 --- !u!114 &8361732136961498386
 MonoBehaviour:
@@ -9838,8 +9839,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -28, y: -301}
-  m_SizeDelta: {x: -56, y: 100}
+  m_AnchoredPosition: {x: 0, y: -370}
+  m_SizeDelta: {x: -56, y: 238.39667}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8361732138068640974
 CanvasRenderer:
@@ -9870,10 +9871,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 16
+    m_FontSize: 25
     m_FontStyle: 0
     m_BestFit: 1
-    m_MinSize: 10
+    m_MinSize: 25
     m_MaxSize: 50
     m_Alignment: 4
     m_AlignByGeometry: 0
