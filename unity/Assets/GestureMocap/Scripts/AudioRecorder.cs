@@ -125,7 +125,6 @@ public class AudioRecorder : MonoBehaviour
             return;
         }
 
-        while (!(Microphone.GetPosition(null) > 0)) { }
         samplesData = new float[audioSource.clip.samples * audioSource.clip.channels];
         audioSource.clip.GetData(samplesData, 0);
         string filePath = Path.Combine(Application.dataPath+$"/GestureMocap/Recordings/{recordingMode}/audios/", fileName + ".wav");

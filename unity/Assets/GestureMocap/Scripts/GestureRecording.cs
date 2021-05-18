@@ -9,7 +9,10 @@ public class GestureRecording
 
     public string sceneType;
     public int sceneNum;
+    public string sceneName;
+    public string targetID;
     public string targetType;
+    public string targetSimObjType;
 
     public Vector3 humanPos;
     public float humanRot;

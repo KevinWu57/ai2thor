@@ -33,24 +33,26 @@ public class MocapController : MonoBehaviour
 
     private Transform human;
     public Transform target;
+    public string targetID;
+    public SimObjType targetSimObjType;
     public TargetObjType targetObjType;
 
     private string sceneName;
     private int sceneNum;
     private Mode mode = Mode.none;
 
-    private List<GameObject> selectableObjects;
+    private Dictionary<string, GameObject> selectableObjects;
+    private string[] selectableObjIDs;
     private Vector3[] selectablePositions;
 
     public int recordingCount = 0; // recording count is used to keep track of the number of recordings that should be done for each scene
     private int targetCount;
-    public int maxRecordingCount = 15;
+    public int maxRecordingCount = 10;
 
     private void Start() 
     {
         audioRecorder = FindObjectOfType<AudioRecorder>();
         recordingCam = GameObject.Find("Neck").GetComponent<Camera>();
-        maxRecordingCount = UnityEngine.Random.Range(9, 12);
 
         human = GameObject.Find("HumanMocapAnimator").transform;
 
@@ -66,9 +68,9 @@ public class MocapController : MonoBehaviour
         }
 
         // selectableObjects = FindObjectOfType<PhysicsSceneManager>().SpawnedObjects.Where(type => Enum.IsDefined(typeof(TargetObjType), target.GetComponent<SimObjPhysics>().ObjType.ToString()) && type.transform.parent.name!="Objects").ToList();
-        selectableObjects = FindObjectOfType<PhysicsSceneManager>().ObjectIdToSimObjPhysics.Where(item => Enum.GetNames(typeof(TargetObjType)).Any(s => item.Key.ToLower().Contains(s.ToLower()))).Select(item => item.Value.gameObject).ToList();
-        selectableObjects.Shuffle_();
+        selectableObjects = FindObjectOfType<PhysicsSceneManager>().ObjectIdToSimObjPhysics.Where(item => Enum.GetNames(typeof(TargetObjType)).Any(s => item.Key.ToLower().Contains(s.ToLower()))).ToDictionary(item => item.Key, item => item.Value.gameObject);
         targetCount = selectableObjects.Count;
+        selectableObjIDs = selectableObjects.Keys.ToList().Shuffle_().ToArray();
 
         // Get selectable positions for the human
         selectablePositions = GameObject.Find("FPSController").GetComponent<PhysicsRemoteFPSAgentController>().getReachablePositions();
@@ -230,7 +232,7 @@ public class MocapController : MonoBehaviour
     {
         // Destroy current dicator first
         if (currentIndicator) Destroy(currentIndicator);
-        target = selectableObjects[recordingCount%targetCount].transform;
+        target = selectableObjects[selectableObjIDs[recordingCount%targetCount]].transform;
         targetObjType = (TargetObjType)Enum.Parse(typeof(TargetObjType), Enum.GetNames(typeof(TargetObjType)).Where(s => target.GetComponent<SimObjPhysics>().Type.ToString().ToLower().Contains(s.ToLower())).ToArray()[0]);
 
         if(target == null) 
@@ -258,6 +260,7 @@ public class MocapController : MonoBehaviour
         else if (sceneNum <= 300) recording.sceneType = "LivingRoom";
         else if (sceneNum <= 400) recording.sceneType = "Bedroom";
         else if (sceneNum <= 500) recording.sceneType = "Bathroom";
+        recording.sceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
 
         // Log human position and orientation
         recording.humanPos = human.position/10f;
@@ -265,7 +268,9 @@ public class MocapController : MonoBehaviour
 
         // Log target information
         recording.targetPos = target.position/10f;
+        recording.targetID = targetID;
         recording.targetType = targetObjType.ToString();
+        recording.targetSimObjType = target.GetComponent<SimObjPhysics>().Type.ToString();
         recording.targetToHuman = recording.targetPos - recording.humanPos;
     }
 
