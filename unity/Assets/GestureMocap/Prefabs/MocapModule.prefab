@@ -446,10 +446,10 @@ GameObject:
   - component: {fileID: 6296593130234868847}
   - component: {fileID: 6296593130234868816}
   - component: {fileID: 6296593130234868819}
-  - component: {fileID: 6296593130234868840}
   - component: {fileID: 6296593130234868845}
   - component: {fileID: 6296593130234868818}
   - component: {fileID: 6296593130234868846}
+  - component: {fileID: 8932364450196541506}
   m_Layer: 14
   m_Name: KinectController
   m_TagString: Untagged
@@ -511,54 +511,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 353f90f926fb95840a4cee57564bdfc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6296593130234868840
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6296593130234868817}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b531f336dfee5f438f94ed501caefc7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sensorHeight: 1.35
-  sensorAngle: 0
-  autoHeightAngle: 0
-  computeUserMap: 1
-  computeColorMap: 0
-  computeInfraredMap: 0
-  displayUserMap: 0
-  displayColorMap: 0
-  displaySkeletonLines: 0
-  DisplayMapsWidthPercent: 20
-  useMultiSourceReader: 0
-  minUserDistance: 0.1
-  maxUserDistance: 0
-  maxLeftRightDistance: 0
-  maxTrackedUsers: 1
-  showTrackedUsersOnly: 1
-  userDetectionOrder: 0
-  ignoreInferredJoints: 0
-  ignoreZCoordinates: 0
-  lateUpdateAvatars: 0
-  skipRemoteAvatars: 0
-  smoothing: 1
-  useBoneOrientationConstraints: 1
-  estimateJointVelocities: 0
-  velocitySmoothing: 2
-  allowTurnArounds: 0
-  allowedHandRotations: 2
-  waitTimeBeforeRemove: 1
-  avatarControllers: []
-  playerCalibrationPose: 0
-  playerCommonGestures: 
-  minTimeBetweenGestures: 0.7
-  gestureManager: {fileID: 0}
-  gestureListeners: []
-  calibrationText: {fileID: 0}
-  gesturesDebugText: {fileID: 0}
 --- !u!114 &6296593130234868845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -610,6 +562,54 @@ MonoBehaviour:
   filePath: BodyRecording.txt
   infoText: {fileID: 0}
   playAtStart: 1
+--- !u!114 &8932364450196541506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6296593130234868817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b531f336dfee5f438f94ed501caefc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sensorHeight: 1.35
+  sensorAngle: 0
+  autoHeightAngle: 0
+  computeUserMap: 1
+  computeColorMap: 0
+  computeInfraredMap: 0
+  displayUserMap: 0
+  displayColorMap: 0
+  displaySkeletonLines: 0
+  DisplayMapsWidthPercent: 20
+  useMultiSourceReader: 0
+  minUserDistance: 0.5
+  maxUserDistance: 0
+  maxLeftRightDistance: 0
+  maxTrackedUsers: 6
+  showTrackedUsersOnly: 1
+  userDetectionOrder: 0
+  ignoreInferredJoints: 0
+  ignoreZCoordinates: 0
+  lateUpdateAvatars: 0
+  skipRemoteAvatars: 0
+  smoothing: 1
+  useBoneOrientationConstraints: 0
+  estimateJointVelocities: 0
+  velocitySmoothing: 2
+  allowTurnArounds: 0
+  allowedHandRotations: 1
+  waitTimeBeforeRemove: 1
+  avatarControllers: []
+  playerCalibrationPose: 0
+  playerCommonGestures: 
+  minTimeBetweenGestures: 0.7
+  gestureManager: {fileID: 0}
+  gestureListeners: []
+  calibrationText: {fileID: 0}
+  gesturesDebugText: {fileID: 0}
 --- !u!1 &6803916755809424134
 GameObject:
   m_ObjectHideFlags: 0
@@ -9484,9 +9484,11 @@ MonoBehaviour:
   confidence: 2
   infoText: {fileID: 8361732138068640973}
   target: {fileID: 0}
+  targetID: 
+  targetSimObjType: 0
   targetObjType: 0
   recordingCount: 0
-  maxRecordingCount: 12
+  maxRecordingCount: 5
 --- !u!114 &8361732136961498386
 MonoBehaviour:
   m_ObjectHideFlags: 0

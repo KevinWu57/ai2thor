@@ -52,7 +52,7 @@ public class MocapController : MonoBehaviour
     private void Start() 
     {
         audioRecorder = FindObjectOfType<AudioRecorder>();
-        recordingCam = GameObject.Find("Neck").GetComponent<Camera>();
+        recordingCam = GameObject.Find("headcam").GetComponent<Camera>();
 
         human = GameObject.Find("HumanMocapAnimator").transform;
 
@@ -93,10 +93,10 @@ public class MocapController : MonoBehaviour
     /// <param name="text"></param>
     private void DictationRecognizer_OnDictationHypothesis(string text)
     {
-        if (isRecording)
-        {
-            infoText.text = text;
-        }
+        // if (isRecording)
+        // {
+        //     infoText.text = text;
+        // }
     }
 
     /// <summary>
@@ -145,18 +145,25 @@ public class MocapController : MonoBehaviour
     /// <param name="confidence"></param>
     private void DictationRecognizer_OnDictationResult(string text, ConfidenceLevel confidence)
     {
-        if (!isRecording)
+        // if (!isRecording)
+        if (true)
         {
             if(text == "start")
             {
-                infoText.text = "Complete sentence is: ";
+                // infoText.text = "Complete sentence is: ";
 
                 isRecording = true;
 
                 filename = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss")+"_mocap";
                 gestureRecording = new GestureRecording();
 
-                audioRecorder.StartRecording();
+                // audioRecorder.StartRecording();
+                recordingCount += 1;
+                
+                motionRecorder.StartRecording(filename, mode, ref gestureRecording);
+
+                if (!SelectTarget()) {infoText.text="Target not selected"; return;}
+                infoText.text =  $"You are now in scene: {UnityEngine.SceneManagement.SceneManager.GetActiveScene().name}" + $" \n This is the No. {recordingCount+1} recording." + $"\n The current target is {targetObjType.ToString()}:";
             }
 
             if(text == "stop")
@@ -171,35 +178,35 @@ public class MocapController : MonoBehaviour
         }
         else
         {
-            // Check if the recorded instruction contains the target
-            if (!CheckInsturctionWithTarget(text))
-            {
-                infoText.text = $"Your instruction does not contain the {targetObjType.ToString()}. Please start again.";
-                audioRecorder.RestartRecording();
-                return;
-            }
+            // // Check if the recorded instruction contains the target
+            // if (!CheckInsturctionWithTarget(text))
+            // {
+            //     infoText.text = $"Your instruction does not contain the {targetObjType.ToString()}. Please start again.";
+            //     audioRecorder.RestartRecording();
+            //     return;
+            // }
 
-            infoText.text = $"Complete sentence is: <b>{text}</b>";
-            gestureRecording.instruction = text;
+            // infoText.text = $"Complete sentence is: <b>{text}</b>";
+            // gestureRecording.instruction = text;
 
-            if (isRecording)
-            {
-                isRecording = false;
+            // if (isRecording)
+            // {
+            //     isRecording = false;
 
-                recordingCount += 1;
+            //     recordingCount += 1;
                 
-                motionRecorder.StartRecording(filename, mode, ref gestureRecording);
+            //     motionRecorder.StartRecording(filename, mode, ref gestureRecording);
 
-                if (!SelectTarget()) {infoText.text="Target not selected"; return;}
-                infoText.text = $" The instruction you just spoke is: {text}. \n This is the No. {recordingCount+1} recording. \n Please speak an instruction with {targetObjType.ToString()}: \n You can choose a verb from the following: {String.Join(", ", verbs)}";
-            }
+            //     if (!SelectTarget()) {infoText.text="Target not selected"; return;}
+            //     infoText.text = $" The instruction you just spoke is: {text}. \n This is the No. {recordingCount+1} recording. \n Please speak an instruction with {targetObjType.ToString()}: \n You can choose a verb from the following: {String.Join(", ", verbs)}";
+            // }
         }
     }
 
     public void LogAllInfo()
     {
         CamCapture(recordingCam, filename, ref gestureRecording);
-        audioRecorder.Save(ref gestureRecording, mode, filename);
+        // audioRecorder.Save(ref gestureRecording, mode, filename);
         LogEnvironmentInfo(ref gestureRecording);
         SaveRecording(filename, gestureRecording);
     }
@@ -232,7 +239,8 @@ public class MocapController : MonoBehaviour
     {
         // Destroy current dicator first
         if (currentIndicator) Destroy(currentIndicator);
-        target = selectableObjects[selectableObjIDs[recordingCount%targetCount]].transform;
+        targetID = selectableObjIDs[recordingCount%targetCount];
+        target = selectableObjects[targetID].transform;
         targetObjType = (TargetObjType)Enum.Parse(typeof(TargetObjType), Enum.GetNames(typeof(TargetObjType)).Where(s => target.GetComponent<SimObjPhysics>().Type.ToString().ToLower().Contains(s.ToLower())).ToArray()[0]);
 
         if(target == null) 
@@ -272,6 +280,10 @@ public class MocapController : MonoBehaviour
         recording.targetType = targetObjType.ToString();
         recording.targetSimObjType = target.GetComponent<SimObjPhysics>().Type.ToString();
         recording.targetToHuman = recording.targetPos - recording.humanPos;
+
+        string[] actions = new string[]{"go to ", "bring ", "take ", "come to ", "find "};
+        string[] preps = new string[]{"this ", "that ", "the "};
+        recording.instruction = actions[UnityEngine.Random.Range(0, actions.Length)] + preps[UnityEngine.Random.Range(0, preps.Length)] + recording.targetType.ToLower();
     }
 
     private void SelectTargetFromInstruction(string sentence)

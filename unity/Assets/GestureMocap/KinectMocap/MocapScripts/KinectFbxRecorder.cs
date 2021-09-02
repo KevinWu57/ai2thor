@@ -461,8 +461,8 @@ public class KinectFbxRecorder : MonoBehaviour
 		// Switch scene
 		if (mocapController.recordingCount >= mocapController.maxRecordingCount)
 		{
-			// mocapController.SwitchScene();
-			UnityEditor.EditorApplication.isPlaying = false;
+			mocapController.SwitchScene();
+			// UnityEditor.EditorApplication.isPlaying = false;
 		}
 	}
 

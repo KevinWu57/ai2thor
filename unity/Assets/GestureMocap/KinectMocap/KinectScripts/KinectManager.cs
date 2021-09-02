@@ -2248,6 +2248,7 @@ public class KinectManager : MonoBehaviour
 			}
 		}
 
+		DontDestroyOnLoad(gameObject);
 	}
 
 	private void StartKinect() 

@@ -42,7 +42,7 @@ public class GestureReplay : MonoBehaviour
 
     private void Start() 
     {
-        humanMocapAnimator = GameObject.Find("HumanMocapAnimator");
+        humanMocapAnimator = GameObject.Find("Malcolm");
         Animator animator = humanMocapAnimator.GetComponent<Animator>();
         poseHandler = new HumanPoseHandler(animator.avatar, humanMocapAnimator.transform);
 
@@ -66,7 +66,8 @@ public class GestureReplay : MonoBehaviour
         // humanMocapAnimator.GetComponent<Animator>().runtimeAnimatorController = null;
 
         string path = Directory.GetCurrentDirectory();
-        path = path + $"/Assets/GestureMocap/Recordings/{mode.ToString()}/motions/" + (loadedFile.EndsWith(".csv")? loadedFile:(loadedFile+".csv"));
+        // path = path + $"/Assets/GestureMocap/Recordings/{mode.ToString()}/motions/" + (loadedFile.EndsWith(".csv")? loadedFile:(loadedFile+".csv"));
+        path = path + (loadedFile.EndsWith(".csv")? loadedFile:(loadedFile+".csv"));
 
         try
         {
