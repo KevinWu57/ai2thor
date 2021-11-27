@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +9,7 @@ using Unity.Barracuda;
 public class GestureReplay : MonoBehaviour
 {
     public bool reapplyPoses;
-    public string filePath;
+    public string filePath = "";
     public NNModel modelAsset;
     public string modelName;
     private Model m_RuntimeModel;
@@ -27,7 +28,12 @@ public class GestureReplay : MonoBehaviour
     // replay from neural network
     // public NNModel model;
     // private Model m_RuntimeModel;
-    public Mode mode = Mode.train;
+    public Mode mode = Mode.test;
+
+    // Object from Json
+    private GestureRecording gestureRecording;
+    public GameObject targetIndicator;
+    private GameObject spawnedIndicator;
 
 
     void FixedUpdate()
@@ -60,6 +66,11 @@ public class GestureReplay : MonoBehaviour
     // Refill animationHumanPoses with values from loaded csv files
     public bool LoadAnimation(string loadedFile)
     {
+        if (spawnedIndicator)
+        {
+            Destroy(spawnedIndicator);
+        }
+
         animationHumanPoses = new float[sequence_length, muscleCount];
         
         // Disable body controller
@@ -69,8 +80,19 @@ public class GestureReplay : MonoBehaviour
         // path = path + $"/Assets/GestureMocap/Recordings/{mode.ToString()}/motions/" + (loadedFile.EndsWith(".csv")? loadedFile:(loadedFile+".csv"));
         path = path + (loadedFile.EndsWith(".csv")? loadedFile:(loadedFile+".csv"));
 
-        try
-        {
+        // Load the summary file
+        string summary_path = Directory.GetCurrentDirectory() + $"/Assets/GestureMocap/Recordings/{mode.ToString()}/summaries/" + loadedFile + ".json";
+        StreamReader sr_summary = new StreamReader(summary_path);
+        string summary_json = sr_summary.ReadToEnd();
+        gestureRecording = JsonUtility.FromJson<GestureRecording>(summary_json);
+
+        humanMocapAnimator.transform.position = gestureRecording.humanPos * 10f;
+        humanMocapAnimator.transform.rotation = Quaternion.Euler(0f, gestureRecording.humanRot * 360f, 0f);
+
+        spawnedIndicator = Instantiate(targetIndicator, gestureRecording.targetPos * 10f, Quaternion.identity);
+
+        // try
+        // {
             StreamReader sr = new StreamReader(path);
             int frame = 0;
             string[] line;
@@ -88,12 +110,12 @@ public class GestureReplay : MonoBehaviour
             }
             counterLoad = frame-1;
             return true;
-        }
-        catch
-        {
-            Debug.LogError($"File at path {path} is not found. Please specify a correct path.");
-            return false;
-        }
+        // }
+        // catch
+        // {
+        //     Debug.LogError($"File at path {path} is not found. Please specify a correct path.");
+        //     return false;
+        // }
 
     }
 
@@ -171,11 +193,15 @@ public class GestureReplay : MonoBehaviour
     {
         if(counterPlay==0)
         {
+            // Get inital position and rotation
+            poseHandler.GetHumanPose(ref poseToSet);
+            initialPos = poseToSet.bodyPosition;
+
             // Set the transform
-            humanMocapAnimator.transform.position = Vector3.zero;
+            // humanMocapAnimator.transform.position = Vector3.zero;
             // Local position
             Vector3 localPos = humanMocapAnimator.transform.InverseTransformPoint(initialPos);
-            poseToSet.bodyPosition = localPos;
+            poseToSet.bodyPosition = new Vector3(0f, initialPos.y, 0f);
         }
 
         poseToSet.bodyRotation = Quaternion.identity;

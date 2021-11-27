@@ -237,7 +237,7 @@ namespace UnityStandardAssets.Characters.FirstPerson {
             // setting default renderer settings
             // this hides renderers not used in tall mode, and also sets renderer
             // culling in FirstPersonCharacterCull.cs to ignore tall mode renderers
-            HideAllAgentRenderers();
+            // HideAllAgentRenderers();
 
             // record initial positions and rotations
             init_position = transform.position;

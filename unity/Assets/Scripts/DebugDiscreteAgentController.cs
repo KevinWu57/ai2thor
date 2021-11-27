@@ -81,8 +81,8 @@ namespace UnityStandardAssets.Characters.FirstPerson {
 
                 if (!inputField.isFocused) {
                     // float FlyMagnitude = 1.0f;
-                    float WalkMagnitude = 0.25f;
-                    if (Input.GetKeyDown(KeyCode.W)) {
+                    float WalkMagnitude = 0.02f;
+                    if (Input.GetKeyDown(KeyCode.S)) {
                         ServerAction action = new ServerAction();
                         // if(PhysicsController.FlightMode)
                         // {
@@ -92,14 +92,14 @@ namespace UnityStandardAssets.Characters.FirstPerson {
                         // }
 
                         // else
-                        // {
+                        // {}
                         action.action = "MoveAhead";
                         action.moveMagnitude = WalkMagnitude;
                         PhysicsController.ProcessControlCommand(action);
                         // }
                     }
 
-                    if (Input.GetKeyDown(KeyCode.S)) {
+                    if (Input.GetKeyDown(KeyCode.W)) {
                         ServerAction action = new ServerAction();
                         // if(PhysicsController.FlightMode)
                         // {
@@ -184,16 +184,18 @@ namespace UnityStandardAssets.Characters.FirstPerson {
                         PhysicsController.ProcessControlCommand(action);
                     }
 
-                    if (Input.GetKeyDown(KeyCode.LeftArrow))//|| Input.GetKeyDown(KeyCode.J))
+                    if (Input.GetKey(KeyCode.LeftArrow))//|| Input.GetKeyDown(KeyCode.J))
                     {
                         ServerAction action = new ServerAction();
+                        action.degrees = 2f;
                         action.action = "RotateLeft";
                         PhysicsController.ProcessControlCommand(action);
                     }
 
-                    if (Input.GetKeyDown(KeyCode.RightArrow))//|| Input.GetKeyDown(KeyCode.L))
+                    if (Input.GetKey(KeyCode.RightArrow))//|| Input.GetKeyDown(KeyCode.L))
                     {
                         ServerAction action = new ServerAction();
+                        action.degrees = 2f;
                         action.action = "RotateRight";
                         PhysicsController.ProcessControlCommand(action);
                     }

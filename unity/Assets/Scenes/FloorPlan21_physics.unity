@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.7170012, g: 0.7306422, b: 0.7505908, a: 1}
+  m_IndirectSpecularColor: {r: 0.71828187, g: 0.7319226, b: 0.7521645, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6924,6 +6924,75 @@ Transform:
   m_Father: {fileID: 922788200}
   m_RootOrder: 116
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &423033634
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3562774319640671080, guid: 84eaf3cb0652364b9af84a3a1cdc6d10,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3562774319640671080, guid: 84eaf3cb0652364b9af84a3a1cdc6d10,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3562774319640671080, guid: 84eaf3cb0652364b9af84a3a1cdc6d10,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3562774319640671080, guid: 84eaf3cb0652364b9af84a3a1cdc6d10,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3562774319640671080, guid: 84eaf3cb0652364b9af84a3a1cdc6d10,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3562774319640671080, guid: 84eaf3cb0652364b9af84a3a1cdc6d10,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3562774319640671080, guid: 84eaf3cb0652364b9af84a3a1cdc6d10,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3562774319640671080, guid: 84eaf3cb0652364b9af84a3a1cdc6d10,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3562774319640671080, guid: 84eaf3cb0652364b9af84a3a1cdc6d10,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3562774319640671080, guid: 84eaf3cb0652364b9af84a3a1cdc6d10,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3562774319640671080, guid: 84eaf3cb0652364b9af84a3a1cdc6d10,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3562774319641096008, guid: 84eaf3cb0652364b9af84a3a1cdc6d10,
+        type: 3}
+      propertyPath: m_Name
+      value: Malcolm
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 84eaf3cb0652364b9af84a3a1cdc6d10, type: 3}
 --- !u!4 &424890314 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6270588446337126517, guid: 0f393baf8fb804bc6980b5c23b0fdce3,
@@ -26231,6 +26300,26 @@ Transform:
   m_Father: {fileID: 810125673}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1545541933 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3562774319641096008, guid: 84eaf3cb0652364b9af84a3a1cdc6d10,
+    type: 3}
+  m_PrefabInstance: {fileID: 423033634}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1545541934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1545541933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a284efbf9e0bc3b82b7c6f7c4ee5d500, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  changeFiles: []
+  makeChanges: 0
 --- !u!1001 &1550099146
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33280,6 +33369,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MocapModule
+      objectReference: {fileID: 0}
+    - target: {fileID: 8361732136961498391, guid: 2b4f184877f0fec4098d1c2d1e253fcc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8361732137189173457, guid: 2b4f184877f0fec4098d1c2d1e253fcc,
         type: 3}

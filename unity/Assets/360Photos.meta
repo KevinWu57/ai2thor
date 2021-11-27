@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:unity/Assets/360Photos.meta
 guid: e9b782942c269e54fb479f537da0ea53
+=======
+guid: a22d9ce2edd1537cfa6ac2445d38df01
+>>>>>>> Update with gesture replaying features and more humanoid models:unity/Assets/GestureMocap/Recordings.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

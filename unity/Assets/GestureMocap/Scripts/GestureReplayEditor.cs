@@ -7,6 +7,7 @@ using Unity.Barracuda;
 [CustomEditor(typeof(GestureReplay))]
 public class GestureReplayEditor : Editor
 {
+    // public GameObject targetIndicator;
     public override void OnInspectorGUI()
     {
         GestureReplay mScript = (GestureReplay)target;
@@ -26,5 +27,7 @@ public class GestureReplayEditor : Editor
         {
             if (mScript.LoadAnimationFromModelName(mScript.modelName)) mScript.reapplyPoses = true;
         }
+
+        mScript.targetIndicator = (GameObject)EditorGUILayout.ObjectField("Target Indicator", mScript.targetIndicator, typeof(GameObject), true);
     }
 }

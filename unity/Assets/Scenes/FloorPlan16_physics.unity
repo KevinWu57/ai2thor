@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.94317067, g: 0.9682602, b: 0.7794443, a: 1}
+  m_IndirectSpecularColor: {r: 0.94321895, g: 0.9682879, b: 0.77945185, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -26137,6 +26137,75 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 934902845}
   m_Mesh: {fileID: 4300008, guid: 7d24e4292a7494a998ae171857b1c9f3, type: 3}
+--- !u!1001 &935340062
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3562774319640671080, guid: 84eaf3cb0652364b9af84a3a1cdc6d10,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3562774319640671080, guid: 84eaf3cb0652364b9af84a3a1cdc6d10,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3562774319640671080, guid: 84eaf3cb0652364b9af84a3a1cdc6d10,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3562774319640671080, guid: 84eaf3cb0652364b9af84a3a1cdc6d10,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3562774319640671080, guid: 84eaf3cb0652364b9af84a3a1cdc6d10,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3562774319640671080, guid: 84eaf3cb0652364b9af84a3a1cdc6d10,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3562774319640671080, guid: 84eaf3cb0652364b9af84a3a1cdc6d10,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3562774319640671080, guid: 84eaf3cb0652364b9af84a3a1cdc6d10,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3562774319640671080, guid: 84eaf3cb0652364b9af84a3a1cdc6d10,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3562774319640671080, guid: 84eaf3cb0652364b9af84a3a1cdc6d10,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3562774319640671080, guid: 84eaf3cb0652364b9af84a3a1cdc6d10,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3562774319641096008, guid: 84eaf3cb0652364b9af84a3a1cdc6d10,
+        type: 3}
+      propertyPath: m_Name
+      value: Malcolm
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 84eaf3cb0652364b9af84a3a1cdc6d10, type: 3}
 --- !u!1 &935474987
 GameObject:
   m_ObjectHideFlags: 0
@@ -29479,7 +29548,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 196425746, guid: 5b3a2f458d83e4af9a41ecf71b1f80f8, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -24.99997
+      value: -25
       objectReference: {fileID: 0}
     - target: {fileID: 431395055, guid: 5b3a2f458d83e4af9a41ecf71b1f80f8, type: 3}
       propertyPath: m_AnchorMax.y
@@ -48933,15 +49002,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: MocapModule
       objectReference: {fileID: 0}
+    - target: {fileID: 8361732136961498391, guid: 2b4f184877f0fec4098d1c2d1e253fcc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8361732137189173457, guid: 2b4f184877f0fec4098d1c2d1e253fcc,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -95.000015
+      value: -95
       objectReference: {fileID: 0}
     - target: {fileID: 8361732138068640972, guid: 2b4f184877f0fec4098d1c2d1e253fcc,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -28.000015
+      value: -28
       objectReference: {fileID: 0}
     - target: {fileID: 8361732138753163610, guid: 2b4f184877f0fec4098d1c2d1e253fcc,
         type: 3}
